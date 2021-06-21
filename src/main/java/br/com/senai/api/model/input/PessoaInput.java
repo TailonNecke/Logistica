@@ -11,12 +11,11 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class PessoaInput {
 
-    @NotNull
-    private long id;
 
-    private String email;
 
     private String nome;
+
+    private String email;
 
     private String telefone;
 
