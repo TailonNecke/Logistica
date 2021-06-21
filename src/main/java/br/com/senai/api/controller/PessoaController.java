@@ -24,6 +24,14 @@ public class PessoaController {
     private PessoaService pessoaService;
     private PessoaAssembler pessoaAssembler;
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public PessoaModel cadastrar(@Valid @RequestBody PessoaInput pessoaInput) {
+        Pessoa pessoinhenta = pessoaAssembler.toEntity(pessoaInput);
+        Pessoa pessoinhento = pessoaService.cadastrar(pessoinhenta);
+        return pessoaAssembler.toModel(pessoinhento);
+    }
+
     @GetMapping()
     public List<PessoaModel> listar(){
         return pessoaService.listar();
@@ -50,10 +58,15 @@ public class PessoaController {
         return pessoaService.procurar(pessoaId);
     }
 
-    @PostMapping
-    public Pessoa cadastrar(@Valid @RequestBody Pessoa pessoa) {
-        return pessoaService.cadastrar(pessoa);
-    }
+//@PostMapping
+//@ResponseStatus(HttpStatus.CREATED)
+//public PessoaModel cadastrar(@Valid @RequestBody Pessoa pessoa, PessoaInput pessoaInput) {
+//    pessoaService.cadastrar(pessoa);
+//    pessoaInput.setNome(pessoa.getNome());
+//    pessoaInput.setEmail(pessoa.getEmail());
+//    pessoaInput.setTelefone(pessoa.getTelefone());
+//    return pessoaInput;
+//}
 
     @PutMapping("/{pessoaId}")
     @ResponseStatus(HttpStatus.CREATED)
