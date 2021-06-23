@@ -5,18 +5,15 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class PessoaInput {
+public class UsuarioInputDTO {
 
-
-
-    private String nome;
-
+    @NotBlank
+    @Email
     private String email;
 
-    private String telefone;
-
+    @NotBlank
+    private String senha;
 }

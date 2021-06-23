@@ -2,8 +2,7 @@ package br.com.senai.domain.service;
 
 
 import br.com.senai.api.assembler.PessoaAssembler;
-import br.com.senai.api.model.PessoaModel;
-import br.com.senai.api.model.input.PessoaInput;
+import br.com.senai.api.model.PessoaDTO;
 import br.com.senai.domain.exception.NegocioException;
 import br.com.senai.domain.model.Pessoa;
 import br.com.senai.domain.repository.PessoaRepository;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
@@ -27,23 +25,23 @@ public class PessoaService {
 
     @Transactional
     public Pessoa cadastrar(Pessoa pessoa){
-        boolean emailValidation = pessoaRepository.findByEmail(pessoa.getEmail()).isPresent();
-
-        if (emailValidation){
-            throw new NegocioException("Ja existe uma pessoa com esse e-mail cadastrado");
-        }
+//        boolean emailValidation = pessoaRepository.findByEmail(pessoa.getEmail()).isPresent();
+//
+//        if (emailValidation){
+//            throw new NegocioException("Ja existe uma pessoa com esse e-mail cadastrado");
+//        }
 
         return pessoaRepository.save(pessoa);
     }
 
-    public List<PessoaModel> listar(){
+    public List<PessoaDTO> listar(){
         return pessoaAssembler.toCollectionModel(pessoaRepository.findAll());
     }
 
-    public List<PessoaModel> listarPorNome(String pessoaNome){
+    public List<PessoaDTO> listarPorNome(String pessoaNome){
         return pessoaAssembler.toCollectionModel(pessoaRepository.findByNome(pessoaNome));
     }
-    public List<PessoaModel> listarNomeContaining(String nomeContaining){
+    public List<PessoaDTO> listarNomeContaining(String nomeContaining){
         return pessoaAssembler.toCollectionModel(pessoaRepository.findByNomeContaining(nomeContaining));
     }
 
@@ -51,7 +49,7 @@ public class PessoaService {
        return pessoaRepository.findById(pessoaId).orElseThrow(() -> new NegocioException("Pessoa não encontrada."));
     }
 
-    public ResponseEntity<PessoaModel> procurar(Long pessoaId){
+    public ResponseEntity<PessoaDTO> procurar(Long pessoaId){
         return pessoaRepository.findById(pessoaId).map(entrega ->
             ResponseEntity.ok(pessoaAssembler.toModel(entrega))
         ).orElse(ResponseEntity.notFound().build());

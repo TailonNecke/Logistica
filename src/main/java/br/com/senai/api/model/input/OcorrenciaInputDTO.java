@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class OcorrenciaInput {
+public class OcorrenciaInputDTO {
 
     @NotBlank
     private  String descricao;
