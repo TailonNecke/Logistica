@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RoleDTO {
+public class RoleUsuariosDTO {
 
-    private String nome_role;
+    private String role_nome_role;
 }

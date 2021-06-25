@@ -3,6 +3,8 @@ package br.com.senai.domain.model;
 import br.com.senai.domain.ValidationGroups;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import static lombok.AccessLevel.PRIVATE;
 
 import javax.persistence.*;
@@ -33,6 +35,7 @@ public class Pessoa {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id")
     Usuario usuario;
+
 
 //    @NotBlank
 //    @Email

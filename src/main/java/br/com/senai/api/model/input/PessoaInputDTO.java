@@ -1,5 +1,6 @@
 package br.com.senai.api.model.input;
 
+import br.com.senai.api.model.RoleUsuariosDTO;
 import br.com.senai.api.model.UsuarioDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class PessoaInputDTO {
 
     @NotNull
     private UsuarioDTO usuario;
+
 
     @NotBlank
     private String telefone;

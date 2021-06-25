@@ -3,7 +3,6 @@ package br.com.senai.api.controller;
 
 import br.com.senai.api.assembler.PessoaAssembler;
 import br.com.senai.api.model.PessoaDTO;
-import br.com.senai.api.model.input.PessoaIdInputDTO;
 import br.com.senai.api.model.input.PessoaInputDTO;
 import br.com.senai.domain.model.Pessoa;
 import br.com.senai.domain.repository.PessoaRepository;
@@ -29,12 +28,11 @@ public class PessoaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PessoaDTO cadastrar(@Valid @RequestBody PessoaInputDTO pessoaInputDTO) {
-        Pessoa pessoinhenta = pessoaAssembler.toEntity(pessoaInputDTO);
-        pessoinhenta.getUsuario().setSenha(new BCryptPasswordEncoder().encode(pessoaInputDTO.getUsuario().getSenha()));
+        Pessoa pessonhenta = pessoaAssembler.toEntity(pessoaInputDTO);
+        pessonhenta.getUsuario().setSenha(new BCryptPasswordEncoder().encode(pessoaInputDTO.getUsuario().getSenha()));
+        Pessoa pessonhento = pessoaService.cadastrar(pessonhenta);
 
-        Pessoa pessoinhento = pessoaService.cadastrar(pessoinhenta);
-
-        return pessoaAssembler.toModel(pessoinhento);
+        return pessoaAssembler.toModel(pessonhento);
     }
 
     @GetMapping()
