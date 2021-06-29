@@ -24,8 +24,8 @@ public class EntregaAssembler {
         return entregas.stream().map(this::toModel).collect(Collectors.toList());
     }
 
-    public Entrega toEntity(EntregaInputDTO entregaInput){
-        return modelMapper.map(entregaInput, Entrega.class);
+    public Entrega toEntity(EntregaInputDTO entregaInputDTO){
+        return modelMapper.map(entregaInputDTO, Entrega.class);
     }
 
 }

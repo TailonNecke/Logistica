@@ -43,4 +43,3 @@ public class SolicitacaoEntregaService {
         ).orElse(ResponseEntity.notFound().build());
     }
 }
-

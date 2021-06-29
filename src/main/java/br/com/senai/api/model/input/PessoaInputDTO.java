@@ -16,7 +16,7 @@ public class PessoaInputDTO {
     private String nome;
 
     @NotNull
-    private UsuarioDTO usuario;
+    private UsuarioInputDTO usuario;
 
 
     @NotBlank

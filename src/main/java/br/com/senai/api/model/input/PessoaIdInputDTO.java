@@ -11,10 +11,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class PessoaIdInputDTO {
 
-   private String nome;
-
-   private UsuarioInputDTO usuario;
-
-   private String telefone;
+   private Long id;
 
 }

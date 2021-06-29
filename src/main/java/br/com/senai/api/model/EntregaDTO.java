@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class EntregaDTO {
 
     private long id;
-    private String nomePessoa;
+    private String pessoa;
     private DestinatarioDTO destinatario;
     private BigDecimal taxa;
     private LocalDateTime dataPedido;

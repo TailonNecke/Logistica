@@ -28,11 +28,11 @@ public class PessoaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PessoaDTO cadastrar(@Valid @RequestBody PessoaInputDTO pessoaInputDTO) {
-        Pessoa pessonhenta = pessoaAssembler.toEntity(pessoaInputDTO);
-        pessonhenta.getUsuario().setSenha(new BCryptPasswordEncoder().encode(pessoaInputDTO.getUsuario().getSenha()));
-        Pessoa pessonhento = pessoaService.cadastrar(pessonhenta);
+        Pessoa newPessoa = pessoaAssembler.toEntity(pessoaInputDTO);
+        newPessoa.getUsuario().setSenha(new BCryptPasswordEncoder().encode(pessoaInputDTO.getUsuario().getSenha()));
+        Pessoa pessoa = pessoaService.cadastrar(newPessoa);
 
-        return pessoaAssembler.toModel(pessonhento);
+        return pessoaAssembler.toModel(pessoa);
     }
 
     @GetMapping()
