@@ -1,5 +1,8 @@
 package br.com.senai.domain.service;
 
+import br.com.senai.api.assembler.RoleUsuariosAssembler;
+import br.com.senai.api.model.RoleUsuariosDTO;
+import br.com.senai.api.model.input.RoleUsuariosInputDTO;
 import br.com.senai.domain.model.RoleUsuarios;
 import br.com.senai.domain.repository.RoleUsuariosRepository;
 import lombok.AllArgsConstructor;
@@ -15,12 +18,16 @@ import javax.validation.Valid;
 public class RoleUsuariosService {
 
     private RoleUsuariosRepository roleUsuariosRepository;
+    private RoleUsuariosAssembler roleUsuariosAssembler;
 
-    public ResponseEntity<RoleUsuarios> editar(@Valid @PathVariable Long roleUsuariosId, @RequestBody RoleUsuarios roleUsuarios){
-        if(!roleUsuariosRepository.existsById(roleUsuariosId)){ return ResponseEntity.notFound().build(); }
-        roleUsuarios.setId(roleUsuariosId);
-        roleUsuarios = roleUsuariosRepository.save(roleUsuarios);
-        return ResponseEntity.ok(roleUsuarios);
+    public ResponseEntity<RoleUsuariosDTO> editar(@Valid @PathVariable Long roleUsuariosId, @RequestBody RoleUsuariosInputDTO roleUsuariosInputDTO){
+//        if(!roleUsuariosRepository.existsById(roleUsuariosId)){ return ResponseEntity.notFound().build(); }
+
+        RoleUsuarios roled = roleUsuariosRepository.findById(roleUsuariosId).orElse(null);
+        roled.setRole_nome_role(roleUsuariosInputDTO.getRole_nome_role());
+        roleUsuariosRepository.save(roled);
+
+        return ResponseEntity.ok(roleUsuariosAssembler.toModel(roled));
     }
 
 }

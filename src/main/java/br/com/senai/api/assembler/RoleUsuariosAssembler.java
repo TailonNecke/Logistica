@@ -21,8 +21,8 @@ public class RoleUsuariosAssembler {
         return modelMapper.map(roleUsuarios, RoleUsuariosDTO.class);
     }
 
-    public List<RoleUsuariosDTO> toCollectionModel(List<RoleUsuarios> roleUsuarioss){
-        return roleUsuarioss.stream().map(this::toModel).collect(Collectors.toList());
+    public List<RoleUsuariosDTO> toCollectionModel(List<RoleUsuarios> roleUsuarios){
+        return roleUsuarios.stream().map(this::toModel).collect(Collectors.toList());
     }
 
     public RoleUsuarios toEntity(RoleUsuariosInputDTO roleUsuariosInputDTO){

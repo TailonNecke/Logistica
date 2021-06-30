@@ -8,5 +8,6 @@ import lombok.Setter;
 public class RoleUsuariosInputDTO {
 
     private String role_nome_role;
-    private  Long usuario_id;
+    private Long usuarios_id;
+
 }
