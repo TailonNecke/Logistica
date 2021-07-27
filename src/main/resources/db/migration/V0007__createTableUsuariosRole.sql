@@ -4,7 +4,7 @@ CREATE TABLE role_usuarios(
 );
 
 ALTER TABLE role_usuarios ADD CONSTRAINT fk_usuarios
-FOREIGN key (usuarios_id) REFERENCES usuarios (id);
+FOREIGN KEY (usuarios_id) REFERENCES usuario (id);
 
 ALTER TABLE role_usuarios ADD CONSTRAINT fk_role
-FOREIGN key (role_nome_role) REFERENCES role (nome_role);
+FOREIGN KEY (role_nome_role) REFERENCES role (nome_role);

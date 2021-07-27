@@ -1,6 +1,5 @@
 package br.com.senai.security;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,27 +24,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JWTRequestFilter jwtRequestFilter;
 
     private static final String[] AUTH_LIST = {
-            "/",
-            "/pessoas",
-            "/pessoas/{pessoaId}",
-            "/roleUsuarios",
-            "/roleUsuarios/{roleUsuariosId}"
+      "/",
+      "/pessoas",
+      "/pessoas/{pessoaId}"
     };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/entregas").hasRole("ADMIN")
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers(HttpMethod.GET, AUTH_LIST).permitAll()
-                .antMatchers(HttpMethod.POST, AUTH_LIST).permitAll()
-                .antMatchers(HttpMethod.PUT, AUTH_LIST).permitAll()
-                .antMatchers(HttpMethod.DELETE, AUTH_LIST).permitAll()
+                    .antMatchers(HttpMethod.GET, "/entregas")
+                        .hasRole("ADMIN")
+                    .antMatchers("/authenticate").permitAll()
+                    .antMatchers(HttpMethod.GET, AUTH_LIST).permitAll()
+                    .antMatchers(HttpMethod.POST, AUTH_LIST).permitAll()
+                    .antMatchers(HttpMethod.PUT, AUTH_LIST).permitAll()
+                    .antMatchers(HttpMethod.DELETE, AUTH_LIST).permitAll()
                 .anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).deleteCookies("token").invalidateHttpSession(true);
-                http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .and().sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .deleteCookies("token").invalidateHttpSession(true);
+        http.addFilterBefore(
+                jwtRequestFilter,
+                UsernamePasswordAuthenticationFilter.class
+        );
     }
 
     @Override
@@ -56,15 +60,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("Tailon").password("{noop}123456")
-//                .roles("ADMIN");
         auth.userDetailsService(implementsUserDetailsService)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/botstrap/**","/style/**");
+        web.ignoring().antMatchers("/botstrap/**", "/style/**");
     }
 }

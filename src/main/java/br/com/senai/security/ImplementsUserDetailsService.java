@@ -23,7 +23,7 @@ public class ImplementsUserDetailsService implements UserDetailsService {
         Usuario usuario = usuarioRepository.findByEmail(email);
 
         if(usuario == null){
-            throw new NegocioException("Usuario ou senha invalido.");
+            throw new NegocioException("Usuário ou senha inválido.");
         }
 
         return new User(

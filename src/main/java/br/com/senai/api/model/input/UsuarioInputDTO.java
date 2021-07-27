@@ -16,4 +16,5 @@ public class UsuarioInputDTO {
 
     @NotBlank
     private String senha;
+
 }

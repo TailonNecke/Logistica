@@ -18,28 +18,30 @@ import java.util.List;
 @Service
 public class SolicitacaoEntregaService {
 
-    private PessoaService pessoaService;
-    private EntregaRepository entregaRepository;
-    private EntregaAssembler entregaAssembler;
+	private PessoaService pessoaService;
+	private EntregaRepository entregaRepository;
+	private EntregaAssembler entregaAssembler;
 
-    @Transactional
-    public Entrega solicitar(Entrega entrega){
-        Pessoa pessoa = pessoaService.buscar(entrega.getPessoa().getId());
-        entrega.setPessoa(pessoa);
+	@Transactional
+	public Entrega solicitar(Entrega entrega){
+		Pessoa pessoa = pessoaService.buscar(entrega.getPessoa().getId());
+		entrega.setPessoa(pessoa);
 
-        entrega.setStatus(StatusEntrega.PENDENTE);
-        entrega.setDataPedido(LocalDateTime.now());
+		entrega.setStatus(StatusEntrega.PENDENTE);
+		entrega.setDataPedido(LocalDateTime.now());
 
-        return entregaRepository.save(entrega);
-    }
+		return entregaRepository.save(entrega);
+	}
 
-    public List<EntregaDTO> listar(){
-        return entregaAssembler.toCollectionModel(entregaRepository.findAll());
-    }
+	public List<EntregaDTO> listar() {
+		return entregaAssembler.toCollectionModel(entregaRepository.findAll());
+	}
 
-    public ResponseEntity<EntregaDTO> buscar(Long entregaId){
-        return entregaRepository.findById(entregaId).map(entrega ->
-            ResponseEntity.ok(entregaAssembler.toModel(entrega))
-        ).orElse(ResponseEntity.notFound().build());
-    }
+	public ResponseEntity<EntregaDTO> buscar(Long entregaId) {
+		return entregaRepository.findById(entregaId)
+				.map(entrega -> {
+					return ResponseEntity.ok(entregaAssembler.toModel(entrega));
+				})
+				.orElse(ResponseEntity.notFound().build());
+	}
 }
