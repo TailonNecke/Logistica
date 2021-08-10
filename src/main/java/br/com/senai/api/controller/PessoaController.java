@@ -1,9 +1,12 @@
 package br.com.senai.api.controller;
 
 import br.com.senai.api.assembler.PessoaAssembler;
+import br.com.senai.api.assembler.UsuarioAssembler;
 import br.com.senai.api.model.PessoaDTO;
 import br.com.senai.api.model.input.PessoaInputDTO;
+import br.com.senai.api.model.input.UsuarioInputDTO;
 import br.com.senai.domain.model.Pessoa;
+import br.com.senai.domain.model.Usuario;
 import br.com.senai.domain.repository.PessoaRepository;
 import br.com.senai.domain.service.PessoaService;
 import lombok.AllArgsConstructor;
@@ -22,6 +25,7 @@ public class PessoaController {
     private PessoaRepository pessoaRepository;
     private PessoaService pessoaService;
     private PessoaAssembler pessoaAssembler;
+    private UsuarioAssembler usuarioAssembler;
 
     @GetMapping
     public List<PessoaDTO> listar(){
@@ -51,6 +55,23 @@ public class PessoaController {
         newPessoa.getUsuario().setSenha(
                 new BCryptPasswordEncoder()
                         .encode(pessoaInputDTO.getUsuario().getSenha()));
+
+        Pessoa pessoa = pessoaService.cadastrar(newPessoa);
+
+        return pessoaAssembler.toModel(pessoa);
+    }
+
+    @PostMapping("/usuario")
+    public PessoaDTO cadUsuario(@Valid @RequestBody UsuarioInputDTO usuarioInputDTO){
+        Usuario usuario = usuarioAssembler.toEntity(usuarioInputDTO);
+        Pessoa newPessoa = new Pessoa();
+        newPessoa.setUsuario(usuario);
+        newPessoa.setTelefone("(47)99988-7755");
+        newPessoa.setNome("Sem nome");
+
+        newPessoa.getUsuario().setSenha(
+                new BCryptPasswordEncoder()
+                        .encode(usuarioInputDTO.getSenha()));
 
         Pessoa pessoa = pessoaService.cadastrar(newPessoa);
 
